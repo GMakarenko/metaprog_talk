@@ -1,4 +1,8 @@
-from logcall import logged
+from time import sleep
+
+from logcall import log_format
+
+logged = log_format('Calling {func.__name__}')
 
 
 @logged
@@ -20,3 +24,8 @@ def sub(x, y):
 @logged
 def mul(x, y):
     return x * y
+
+
+def slow_function(s):
+    sleep(s)
+    return s

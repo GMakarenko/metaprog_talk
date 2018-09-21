@@ -69,3 +69,20 @@ def log_with_param(param):
         return wrapper
 
     return logged
+
+
+def instrumented(path):
+    def time_it(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            t0 = time.time()
+            result = func(*args, **kwargs)
+            t1 = time.time()
+            duration = t1 - t0
+            send_to_csv(func.__name__, t0, duration, path)
+            print("It takes:", duration, "seconds")
+            return result
+
+        return wrapper
+
+    return time_it

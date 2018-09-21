@@ -1,8 +1,34 @@
 from functools import wraps
 import time
+import csv
+
+'''
+Define un decorator llamado: instrumented
+debe aceptar como parámetro el path del archivo csv donde va a escribir
+usa la funcion send_to_csv para guardar las métricas de la función
+
+>>> from sample import slow_function
+>>> slow_function(5)
+It takes 5 seconds
+
+abre el archivo time_series_log.csv para verificar el registro
+'''
 
 
-# https://stackoverflow.com/questions/2866380/how-can-i-time-a-code-segment-for-testing-performance-with-pythons-timeit
+def send_to_csv(func_name, ts, duration, path):
+    """
+    Writes a record in csv file
+    :param path: csv path
+    :param func_name: the function name
+    :param ts: timestamp
+    :param duration: duration in seconds
+    :return: None
+    """
+    with open(path, mode='a') as csv_file:
+        row = {"function_id": func_name, "time_stamp": ts, "duration": duration}
+        writer = csv.DictWriter(csv_file, fieldnames=row.keys())
+        writer.writerow(row)
+
 
 def logged(func):
     print("Decorating", func.__name__)
@@ -25,3 +51,21 @@ def time_it(func):
         return result
 
     return wrapper
+
+
+def log_with_param(param):
+    """
+    Esta funcion regresa un decorator
+    """
+
+    def logged(func):
+        print("Decorating", func.__name__)
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            print(param)
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return logged

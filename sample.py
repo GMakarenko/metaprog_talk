@@ -1,9 +1,9 @@
 from time import sleep
 
-from logcall import logged, time_it
+from logcall import logged, log_with_param, instrumented
 
 
-@logged
+@log_with_param(">>> This is a test")
 def add(x, y):
     """
     Adds x and y
@@ -24,7 +24,7 @@ def mul(x, y):
     return x * y
 
 
-@time_it
+@instrumented('time_series_log.csv')
 def slow_function(s):
     """
     Simula una funcion que tarda s segundos en ejecutarse

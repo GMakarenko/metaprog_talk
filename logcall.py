@@ -15,20 +15,6 @@ def logged(func):
     return wrapper
 
 
-def log_format(fmt):
-    def logged(func):
-        print("Decorating", func.__name__)
-
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            print(fmt.format(func=func))
-            return func(*args, **kwargs)
-
-        return wrapper
-
-    return logged
-
-
 def time_it(func):
     @wraps(func)
     def wrapper(*args, **kwargs):

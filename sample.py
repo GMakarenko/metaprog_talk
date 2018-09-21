@@ -1,8 +1,6 @@
 from time import sleep
 
-from logcall import log_format
-
-logged = log_format('Calling {func.__name__}')
+from logcall import logged, time_it
 
 
 @logged
@@ -26,6 +24,12 @@ def mul(x, y):
     return x * y
 
 
+@time_it
 def slow_function(s):
+    """
+    Simula una funcion que tarda s segundos en ejecutarse
+    :param s:
+    :return:
+    """
     sleep(s)
-    return s
+    return None

@@ -1,6 +1,6 @@
 from time import sleep
 
-from logcall import logged, log_with_param, instrumented
+from logcall import logged, log_with_param, instrumented, log_methods
 
 
 @log_with_param(">>> This is a test")
@@ -33,3 +33,15 @@ def slow_function(s):
     """
     sleep(s)
     return None
+
+
+@log_methods
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+
+    def hey(self):
+        print("Hey")
+
+    def you(self):
+        print("you")

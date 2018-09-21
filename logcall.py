@@ -86,3 +86,11 @@ def instrumented(path):
         return wrapper
 
     return time_it
+
+
+def log_methods(cls):
+    for key, value in list(vars(cls).items()):
+        if callable(value):
+            # is a method?
+            setattr(cls, key, logged(value))
+    return cls

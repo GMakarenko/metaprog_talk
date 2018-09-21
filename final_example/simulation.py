@@ -31,7 +31,7 @@ def activate_user(n):
 
 
 if __name__ == '__main__':
-    users = 5
+    users = 20
     users_actions = [randrange(1, 10) for _ in range(users)]
 
     e = ThreadPoolExecutor()
